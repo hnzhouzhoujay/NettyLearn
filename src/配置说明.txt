@@ -1,0 +1,45 @@
+﻿
+配置文件写在项目src目录application.properties中，配置项如下：
+
+//数据库地址配置，数据库为mysql，jdbc:mysql://192.168.0.8:3306/test_pd，数据库地址自行修改
+database=jdbc:mysql://192.168.0.8:3306/test_pd?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull
+//数据库用户名
+username=100msh_erp_java
+//数据库密码
+password=100msh@erp
+//攀多提供的认证码(不需要修改)
+App_Key=41e358c8c9a5f951279ea41ff2bb00fffbcb76849924a7f5e80b7a4efa827653
+//以下3个微信那边的认证(不需要修改)
+token=weixin
+AppID=wxc58def6a357d532d
+AppSecret=63cb6102e2da1dcc4c3134ef62b69d10
+//设定扫描后多少秒关闭充电,以秒为单位
+time=1200
+
+//所有的充电设备上面的mac写在identifiers=后面并以","分开
+identifiers=64-6b-016671,6a-61-0166ff
+// =号前面为设备mac,后面第一位数表示商家1,001表示1号设备，依次类推，如商家2的3号设备2003,
+所有设备都需配置
+64-6b-016671=1001
+6a-61-0166ff=2003
+
+数据库只有1张表
+//建表语句如下
+CREATE TABLE `t_counter` (
+`id`  int(11) NOT NULL AUTO_INCREMENT ,
+`evt`  int(2) NOT NULL ,
+`openid`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`date`  varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`datetime`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`shopid`  varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`identifier`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`deviceid`  varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+PRIMARY KEY (`id`)
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+AUTO_INCREMENT=65
+ROW_FORMAT=COMPACT
+;
+
+

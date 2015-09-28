@@ -14,6 +14,8 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
+import io.netty.channel.group.ChannelGroup;
+import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -24,11 +26,13 @@ import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.util.concurrent.GlobalEventExecutor;
 
 public class NettyServer {
 	public void bind (int port){
 		EventLoopGroup bossGroup=new NioEventLoopGroup();//reactor线程组，用于分派处理事件线程
 		EventLoopGroup workerGroup=new NioEventLoopGroup();
+		ChannelGroup  groupAll=new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 		try {
 			ServerBootstrap boot=new ServerBootstrap();//启动服务
 			boot.group(bossGroup, workerGroup)
@@ -63,7 +67,9 @@ public class NettyServer {
 	}
 	public static void main(String[] args) {
 		NettyServer server=new NettyServer();
-		server.bind(8000);
+//		server.bind(8000);
+		ByteBuf buf=Unpooled.buffer(1);
+		buf.writeBytes("ok".getBytes());
 	}
 	
 
