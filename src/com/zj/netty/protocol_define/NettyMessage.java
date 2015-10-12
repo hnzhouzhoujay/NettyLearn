@@ -1,6 +1,12 @@
 package com.zj.netty.protocol_define;
 
-public final class NettyMessage {
+import java.io.Serializable;
+
+public final class NettyMessage implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Header header;
 	private Object body;
 	public Header getHeader() {

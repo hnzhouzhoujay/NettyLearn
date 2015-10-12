@@ -1,5 +1,6 @@
 package com.zj.netty.protocol_define;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 /**
@@ -8,7 +9,11 @@ import java.util.Map;
  * @author Administrator
  *
  */
-public class Header {
+public class Header implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int crcCode=0xabef0101;
 	private int length;
 	private long sessionID;

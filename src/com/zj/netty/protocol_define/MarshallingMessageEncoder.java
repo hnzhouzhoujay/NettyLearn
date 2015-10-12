@@ -1,8 +1,12 @@
 package com.zj.netty.protocol_define;
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 import org.jboss.marshalling.Marshaller;
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import io.netty.buffer.UnpooledByteBufAllocator;
+import io.netty.buffer.UnpooledHeapByteBuf;
 
 public class MarshallingMessageEncoder {
 	private Marshaller marshaller;
@@ -23,6 +27,22 @@ public class MarshallingMessageEncoder {
 		int writerIndex=buf.writerIndex();
 		buf.setInt(startIndex, writerIndex-4-startIndex);
 		
+	}
+	public static void main(String[] args) {
+		MarshallingMessageEncoder messageEncoder=new MarshallingMessageEncoder();
+		NettyMessage message=new NettyMessage();
+		Header header=new Header();
+		header.setSessionID(5);
+		header.setPriority((byte)4);
+		message.setHeader(header);
+		ByteBuf buf=Unpooled.buffer(1024);
+		try {
+			messageEncoder.encode(message, buf);
+			String content=buf.toString(Charset.forName("utf-8"));
+			System.out.println(content);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
